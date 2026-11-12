@@ -10,7 +10,7 @@ Pipeline nhận CSV Mall Customers. Các cột tối thiểu: `Gender`, `Age`, `
 - Chuẩn hóa quan trọng vì các thuật toán dựa trên khoảng cách; nếu không, thang đo thu nhập có thể lấn át biến tuổi hoặc spending score.
 
 ## 3. Chọn k
-K-Means được chạy với k từ 2 đến min(10, n-1). Elbow (inertia) và Silhouette được xuất riêng. Chọn k có Silhouette cao nhất trong phạm vi khảo sát là một quy tắc thực nghiệm, không phải chân lý; cần xem thêm Elbow, profile và mục tiêu nghiệp vụ.
+K-Means được chạy với k từ 2 đến min(max_k, n-1). Trong thí nghiệm hiện tại, `max_k = 15`, vì vậy khảo sát các giá trị k từ 2 đến 15. Elbow (inertia) và Silhouette được xuất riêng. Chọn k có Silhouette cao nhất trong phạm vi khảo sát là một quy tắc thực nghiệm, không phải chân lý; cần xem thêm Elbow, profile và mục tiêu nghiệp vụ.
 
 ## 4. Thuật toán
 - **K-Means:** tâm cụm là mean; phù hợp cụm tương đối cầu, nhạy outlier.

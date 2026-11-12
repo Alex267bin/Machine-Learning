@@ -16,3 +16,6 @@ venv/
 !*/outputs/README.md
 !*/models/README.md
 !*/logs/README.md
+
+# Nested repository - do not include
+/Machine-Learning/
