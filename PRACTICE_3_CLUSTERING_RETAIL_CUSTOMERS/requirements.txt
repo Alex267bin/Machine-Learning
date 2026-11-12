@@ -1,0 +1,10 @@
+# K-Medoids dùng PAM nội bộ; không cần scikit-learn-extra
+pandas>=2.2,<3
+numpy>=1.26,<3
+scikit-learn>=1.4,<2
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+Pillow>=10
+opencv-python>=4.9
+scipy>=1.11
+jupyter>=1.0

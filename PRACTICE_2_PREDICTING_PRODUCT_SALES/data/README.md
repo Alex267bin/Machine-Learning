@@ -1,0 +1,1 @@
+Dữ liệu được tải khi chạy train.py qua ucimlrepo (UCI dataset ID 352). Không commit dữ liệu thô. Nguồn: https://archive.ics.uci.edu/dataset/352/online+retail — CC BY 4.0, DOI 10.24432/C5BW33.

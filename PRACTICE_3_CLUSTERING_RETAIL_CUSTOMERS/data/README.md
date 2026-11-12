@@ -1,0 +1,1 @@
+Đặt Mall_Customers.csv tại đây. Script hỗ trợ các cột CustomerID, Gender, Age, Annual Income (k$), Spending Score (1-100) hoặc tên tương đương. Không tự tạo dữ liệu thay thế.

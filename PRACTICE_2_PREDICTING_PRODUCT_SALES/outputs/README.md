@@ -1,0 +1,1 @@
+Các bảng metrics, dự báo và biểu đồ được tạo tự động bởi scripts/train.py; không commit output sinh ra.
