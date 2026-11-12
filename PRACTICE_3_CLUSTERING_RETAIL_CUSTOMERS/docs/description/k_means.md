@@ -1,25 +1,25 @@
-# K-Means
+# Thuật toán K-Means
 
-## Purpose
-Partition customers into k groups around feature-space centroids.
+## Mục đích
+Chia khách hàng thành k nhóm dựa trên khoảng cách đến tâm cụm trong không gian đặc trưng.
 
-## Input
-Standardized Age, Annual Income and Spending Score, plus optional one-hot Gender.
+## Đầu vào
+Tuổi, thu nhập hằng năm và điểm chi tiêu đã chuẩn hóa; có thể bổ sung giới tính đã được mã hóa One-Hot.
 
-## Output
-One integer cluster label per customer, inertia, silhouette score, profiles and PCA visualization.
+## Đầu ra
+Một nhãn cụm dạng số nguyên cho mỗi khách hàng, giá trị Inertia, điểm Silhouette, hồ sơ cụm và hình trực quan hóa PCA.
 
-## How it works
-1. Initialize k centroids.
-2. Assign each observation to its nearest centroid.
-3. Recompute each centroid as the mean of assigned observations.
-4. Repeat assignment and update until convergence.
+## Cách hoạt động
+1. Khởi tạo k tâm cụm.
+2. Gán mỗi quan sát vào tâm cụm gần nhất.
+3. Tính lại tâm cụm bằng trung bình các quan sát được gán vào cụm đó.
+4. Lặp lại bước gán và cập nhật cho đến khi hội tụ.
 
-## Parameters in this project
-The script tests k from 2 to min(max_k, n-1), uses n_init=20 and random_state=42, then selects the k with the highest silhouette score in that range.
+## Tham số trong dự án
+Chương trình thử k từ 2 đến giá trị nhỏ hơn giữa `max_k` và `n-1`, sử dụng `n_init=20` và `random_state=42`, sau đó chọn k có Silhouette cao nhất trong phạm vi khảo sát.
 
-## Evaluation
-Silhouette is used for k exploration; final algorithm comparison also records Davies–Bouldin and Calinski–Harabasz.
+## Đánh giá
+Silhouette được dùng để khảo sát số cụm; phần so sánh thuật toán cuối cùng còn ghi nhận Davies–Bouldin và Calinski–Harabasz.
 
-## Strengths and limitations
-Efficient and easy to interpret, but requires k and favors compact, roughly spherical groups. Results depend on scaling and initialization. Cluster IDs have no intrinsic ordering.
+## Ưu điểm và hạn chế
+Hiệu quả và dễ giải thích, nhưng phải xác định trước k và thường phù hợp với các cụm tương đối gọn, gần hình cầu. Kết quả phụ thuộc vào chuẩn hóa và cách khởi tạo. Số hiệu cụm không thể hiện thứ hạng hay chất lượng khách hàng.
