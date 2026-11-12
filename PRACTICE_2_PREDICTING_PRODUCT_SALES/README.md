@@ -7,7 +7,7 @@ Dự báo **doanh thu theo StockCode và tháng** từ UCI Online Retail (ID 352
 - `scripts/train.py`: làm sạch, tạo panel/lag, train, temporal CV tuning, đánh giá và lưu model.
 - `scripts/predict.py`: dự báo từ lịch sử lag.
 - `notebooks/02_sales_forecasting.ipynb`: notebook học tập.
-- `docs/`: dataset, methodology, results, viva questions, references.
+- `docs/`: dataset, methodology, results, viva questions, references, detailed project description/design, algorithm notes, generated-figure guidance and report guidance.
 - `outputs/`: CSV, JSON và figures sinh khi chạy.
 - `models/`: model artifact.
 - `logs/`: log chạy.
