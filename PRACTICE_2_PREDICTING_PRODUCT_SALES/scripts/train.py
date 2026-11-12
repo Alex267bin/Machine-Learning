@@ -146,7 +146,12 @@ def main():
                      "tuned": False})
     # Tuning chỉ trên train; test không tham gia chọn tham số.
     n_splits = min(4, max(2, len(np.unique(train.month)) // 3))
-    cv = TimeSeriesSplit(n_splits=n_splits)
+    month_cv = TimeSeriesSplit(n_splits=n_splits)
+    train_months = np.sort(train.month.unique())
+    # Mỗi fold chia theo tháng hoàn chỉnh, không cắt một tháng thành train/validation.
+    cv = [(np.flatnonzero(train.month.isin(train_months[tr_idx])),
+           np.flatnonzero(train.month.isin(train_months[va_idx])))
+          for tr_idx, va_idx in month_cv.split(train_months)]
     search = RandomizedSearchCV(
         build_pipeline(RandomForestRegressor(random_state=SEED, n_jobs=-1)),
         {"model__n_estimators": [150, 250, 400],
