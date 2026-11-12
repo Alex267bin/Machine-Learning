@@ -1,18 +1,21 @@
-# Machine Learning — Bài thực hành 2 và 3
+# Machine Learning — Lab 2 & Lab 3
 
 Repository gồm hai bài thực hành độc lập:
 
-- [Practice 2 — Dự đoán doanh số sản phẩm](PRACTICE_2_PREDICTING_PRODUCT_SALES/README.md)
-- [Practice 3 — Phân cụm khách hàng bán lẻ](PRACTICE_3_CLUSTERING_RETAIL_CUSTOMERS/README.md)
+| Thư mục | Bài toán | Thuật toán |
+|---|---|---|
+| PRACTICE_2_PREDICTING_PRODUCT_SALES | Regression — dự báo doanh thu sản phẩm-tháng | Linear Regression, Decision Tree, Random Forest, Gradient Boosting |
+| PRACTICE_3_CLUSTERING_RETAIL_CUSTOMERS | Unsupervised Learning — phân cụm khách hàng | K-Means, K-Medoids (PAM), DBSCAN, Hierarchical |
 
-## Môi trường
-Python 3.10–3.12. Tạo môi trường ảo và cài dependencies riêng cho từng bài:
+## Nguyên tắc
+- Tách riêng data, scripts, notebooks, docs, outputs, models, logs.
+- Lab 2 holdout theo thời gian; tuning chỉ trên train; lag/rolling chỉ dùng lịch sử.
+- Lab 3 scale biến số, mã hóa biến phân loại; DBSCAN noise được ghi nhận và loại khỏi metric.
+- Không ghi số liệu kết quả giả. Chạy script với dataset thực để sinh metrics.
+- Tài liệu, chú thích, câu hỏi vấn đáp viết bằng tiếng Việt; giữ thuật ngữ kỹ thuật tiếng Anh.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-pip install -r PRACTICE_2_PREDICTING_PRODUCT_SALES/requirements.txt
-pip install -r PRACTICE_3_CLUSTERING_RETAIL_CUSTOMERS/requirements.txt
-```
+## Bắt đầu
+Mỗi bài có README và requirements riêng. Dùng Python 3.12 và virtual environment riêng. Xem README trong từng thư mục để cài đặt/chạy.
 
-Mỗi bài có dữ liệu, scripts, notebooks, docs, outputs và models riêng. Không commit dữ liệu thô, mô hình hoặc môi trường ảo.
+## Dữ liệu
+Không commit dataset lớn hoặc dữ liệu chưa rõ quyền phân phối. Kiểm tra nguồn, license và schema trong DATASET_DOCUMENTATION trước khi dùng.
