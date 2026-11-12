@@ -1,44 +1,44 @@
-# Project Description — Product Sales Forecasting
+# Mô tả dự án — Dự báo doanh thu sản phẩm
 
-## 1. Purpose
-Estimate monthly revenue for each product identified by `StockCode` using its own previous monthly revenue history. The intended decision support is a baseline signal for product-level inventory and sales planning.
+## 1. Mục đích
+Ước lượng doanh thu hằng tháng của từng sản phẩm được xác định bằng `StockCode`, dựa trên lịch sử doanh thu các tháng trước của chính sản phẩm đó. Kết quả đóng vai trò tham khảo ban đầu cho việc lập kế hoạch bán hàng và tồn kho theo sản phẩm.
 
-## 2. Problem definition
-- **Type:** supervised regression on a product-month panel.
-- **Dataset:** UCI Online Retail, repository ID 352.
-- **Observation:** one product (`StockCode`) in one calendar month.
-- **Target:** `revenue = sum(Quantity × UnitPrice)`, in GBP, grouped by product and month.
-- **Prediction:** non-negative estimated revenue for a product-month.
-- **Not predicted:** transaction quantity, store-wide revenue, customer lifetime value, or causal marketing impact.
+## 2. Xác định bài toán
+- **Loại bài toán:** hồi quy có giám sát trên bảng dữ liệu sản phẩm-tháng.
+- **Bộ dữ liệu:** UCI Online Retail, mã bộ dữ liệu 352.
+- **Một mẫu dữ liệu:** một sản phẩm (`StockCode`) trong một tháng dương lịch.
+- **Biến mục tiêu:** `revenue = sum(Quantity × UnitPrice)`, đơn vị GBP, được tính theo từng sản phẩm và tháng.
+- **Giá trị dự đoán:** doanh thu ước lượng không âm của một sản phẩm trong một tháng.
+- **Không dự đoán:** số lượng giao dịch, tổng doanh thu toàn cửa hàng, giá trị vòng đời khách hàng hoặc tác động nhân quả của tiếp thị.
 
-## 3. Input and output
-**Raw input:** transaction records with `InvoiceNo`, `StockCode`, `Quantity`, `InvoiceDate`, and `UnitPrice`.
+## 3. Đầu vào và đầu ra
+**Dữ liệu thô:** các giao dịch gồm `InvoiceNo`, `StockCode`, `Quantity`, `InvoiceDate` và `UnitPrice`.
 
-**Model features:** `StockCode`, `lag_1`, `lag_2`, `lag_3`, `rolling_mean_3`, and `month_num`.
+**Đặc trưng mô hình:** `StockCode`, `lag_1`, `lag_2`, `lag_3`, `rolling_mean_3` và `month_num`.
 
-**Outputs:** model comparison CSV, test predictions, metrics JSON, diagnostic figures, feature importance when supported, and a serialized best pipeline.
+**Đầu ra:** bảng CSV so sánh mô hình, dự đoán trên tập kiểm tra, tệp JSON chứa chỉ số đánh giá, biểu đồ chẩn đoán, độ quan trọng đặc trưng nếu mô hình hỗ trợ và mô hình tốt nhất đã được tuần tự hóa.
 
-## 4. Processing
-1. Parse dates and numeric fields; remove invalid rows, cancellation invoices, and non-positive quantity/price.
-2. Aggregate transaction revenue by product and month.
-3. Build a monthly panel for each product from its first observed month to the dataset's last month; absent months are treated as zero revenue.
-4. Create lag and shifted rolling-mean features so a row only uses earlier months.
-5. Split chronologically; tune and select using time-series cross-validation on training months.
-6. Evaluate the selected and candidate models on the later holdout period.
+## 4. Các bước xử lý
+1. Chuyển đổi ngày và kiểu dữ liệu số; loại bỏ dòng không hợp lệ, hóa đơn hủy và giao dịch có số lượng hoặc đơn giá không dương.
+2. Cộng doanh thu giao dịch theo từng sản phẩm và tháng.
+3. Tạo bảng theo tháng cho mỗi sản phẩm, từ tháng đầu tiên sản phẩm xuất hiện đến tháng cuối cùng của bộ dữ liệu; các tháng không phát sinh doanh thu được gán bằng 0.
+4. Tạo đặc trưng trễ và trung bình trượt đã dịch lùi để mỗi dòng chỉ sử dụng thông tin từ các tháng trước.
+5. Chia dữ liệu theo trình tự thời gian; tinh chỉnh và lựa chọn mô hình bằng kiểm định chéo chuỗi thời gian trên tập huấn luyện.
+6. Đánh giá các mô hình trên giai đoạn kiểm tra nằm sau giai đoạn huấn luyện.
 
-## 5. Models
-Linear Regression, Decision Tree Regressor, Random Forest Regressor, Gradient Boosting Regressor, and a tuned Random Forest candidate.
+## 5. Các mô hình
+Hồi quy tuyến tính, Cây quyết định hồi quy, Rừng ngẫu nhiên hồi quy, Tăng cường Gradient hồi quy và một phiên bản Rừng ngẫu nhiên được tinh chỉnh tham số.
 
-## 6. Evaluation
-MAE, MSE, RMSE and R² are calculated on the original GBP target. CV RMSE is the selection metric; holdout metrics are for final reporting, not model selection.
+## 6. Đánh giá
+MAE, MSE, RMSE và R² được tính trên biến mục tiêu GBP ở thang đo ban đầu. RMSE kiểm định chéo được dùng để chọn mô hình; các chỉ số trên tập kiểm tra chỉ dùng cho báo cáo cuối cùng, không dùng để lựa chọn mô hình.
 
-## 7. Scope and limitations
-The source dataset does not contain marketing spend, stock-on-hand, product descriptions, or customer demographics. These variables are not fabricated or inferred. Revenue history is sparse and product mix changes over time; the model is a forecasting baseline, not a guarantee of future demand.
+## 7. Phạm vi và giới hạn
+Bộ dữ liệu nguồn không có ngân sách tiếp thị, lượng hàng tồn, mô tả sản phẩm hoặc nhân khẩu học khách hàng. Dự án không tự tạo hoặc suy diễn các biến này. Lịch sử doanh thu có thể thưa và cơ cấu sản phẩm thay đổi theo thời gian; vì vậy mô hình chỉ là đường cơ sở dự báo, không bảo đảm nhu cầu tương lai.
 
-## 8. Acceptance checklist
-- [ ] Dataset source and required columns verified.
-- [ ] No future-month features leak into earlier observations.
-- [ ] Train/test split is chronological.
-- [ ] Model selection uses training-only temporal CV.
-- [ ] Metrics and plots are generated by a real run.
-- [ ] Predictions and model artifact are saved and reproducible.
+## 8. Tiêu chí nghiệm thu
+- [ ] Xác minh nguồn dữ liệu và các cột bắt buộc.
+- [ ] Không để đặc trưng của tháng tương lai rò rỉ vào tháng quá khứ.
+- [ ] Chia tập huấn luyện và kiểm tra theo thời gian.
+- [ ] Chỉ dùng kiểm định chéo trên tập huấn luyện để lựa chọn mô hình.
+- [ ] Chỉ số và biểu đồ được tạo từ lần chạy thực tế.
+- [ ] Dự đoán và mô hình được lưu theo cách có thể tái lập.
