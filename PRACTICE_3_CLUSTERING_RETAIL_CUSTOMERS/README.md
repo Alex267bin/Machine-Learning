@@ -7,7 +7,7 @@ Bài thực hành phân cụm khách hàng trên Mall Customers và phần mở 
 - `scripts/cluster.py`: kiểm tra dữ liệu, scaling, Elbow/Silhouette, K-Means, K-Medoids (PAM), DBSCAN, Hierarchical Ward, metrics, profiles, PCA và dendrogram.
 - `scripts/image_segmentation.py`: K-Means trên vector màu RGB của pixel.
 - `notebooks/03_customer_clustering.ipynb`: notebook phân tích.
-- `docs/`: dataset, methodology, results, viva questions, references.
+- `docs/`: dataset, methodology, results, viva questions, references, detailed project description/design, algorithm notes, generated-figure guidance and report guidance.
 - `outputs/`: CSV, JSON, PNG sinh tự động.
 - `logs/`: nhật ký chạy.
 
