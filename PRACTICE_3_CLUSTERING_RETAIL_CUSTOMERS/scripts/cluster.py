@@ -39,15 +39,19 @@ def load_data(path):
     logging.info("Dữ liệu: %s dòng; loại %s dòng thiếu/trùng.", len(df), before-len(df))
     return df
 
-def transform(df):
-    """Scale numerical features; encode Gender; không dùng CustomerID."""
+def transform(df, include_gender=True):
+    """Scale biến số; tùy chọn one-hot Gender để kiểm tra ảnh hưởng của biến này."""
     numeric = ["Age", "Annual Income", "Spending Score"]
-    prep = ColumnTransformer([
+    transformers = [
         ("numeric", Pipeline([("imputer", SimpleImputer(strategy="median")),
-                              ("scaler", StandardScaler())]), numeric),
-        ("gender", Pipeline([("imputer", SimpleImputer(strategy="most_frequent")),
-                             ("onehot", OneHotEncoder(handle_unknown="ignore"))]), ["Gender"])
-    ])
+                              ("scaler", StandardScaler())]), numeric)
+    ]
+    if include_gender:
+        transformers.append(
+            ("gender", Pipeline([("imputer", SimpleImputer(strategy="most_frequent")),
+                                 ("onehot", OneHotEncoder(handle_unknown="ignore"))]), ["Gender"])
+        )
+    prep = ColumnTransformer(transformers)
     return prep.fit_transform(df)
 
 def pam_kmedoids(X, k, max_iter=100, seed=SEED):
@@ -95,14 +99,24 @@ def main():
     parser.add_argument("--data", default=str(ROOT / "data/Mall_Customers.csv"))
     parser.add_argument("--eps", type=float, default=0.75)
     parser.add_argument("--min-samples", type=int, default=5)
+    parser.add_argument("--max-k", type=int, default=15)
+    parser.add_argument("--without-gender", action="store_true")
+    parser.add_argument("--output-dir", type=str, default=None)
     args = parser.parse_args()
-    out = ROOT / "outputs"; figs = out / "figures"
+    if args.eps <= 0 or args.min_samples < 2 or args.max_k < 2:
+        parser.error("--eps phải > 0; --min-samples và --max-k phải >= 2.")
+    out = Path(args.output_dir).expanduser() if args.output_dir else ROOT / "outputs"
+    figs = out / "figures"
     for p in (out, figs, ROOT / "logs"): p.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(filename=ROOT / "logs/clustering.log", level=logging.INFO,
                         format="%(asctime)s | %(levelname)s | %(message)s")
     df = load_data(args.data)
-    Xsp = transform(df); X = Xsp.toarray() if hasattr(Xsp, "toarray") else np.asarray(Xsp)
-    max_k = min(10, len(df)-1)
+    include_gender = not args.without_gender
+    Xsp = transform(df, include_gender=include_gender)
+    X = Xsp.toarray() if hasattr(Xsp, "toarray") else np.asarray(Xsp)
+    max_k = min(args.max_k, len(df)-1)
+    if max_k < 2:
+        raise ValueError("Cần ít nhất 3 quan sát hợp lệ để thử k từ 2.")
     ks = range(2, max_k+1)
     elbow, sil = [], []
     for k in ks:
@@ -162,13 +176,20 @@ def main():
     fig.colorbar(sc, ax=ax, label="Cluster"); fig.tight_layout()
     fig.savefig(figs/"pca_clusters.png", dpi=160); plt.close(fig)
     # Dendrogram có giới hạn quan sát để hình dễ đọc.
-    sample = X[:min(100, len(X))]
+    rng = np.random.default_rng(SEED)
+    sample_idx = np.sort(rng.choice(len(X), size=min(100, len(X)), replace=False))
+    sample = X[sample_idx]
     Z = linkage(sample, method="ward")
     fig, ax = plt.subplots(figsize=(12,5)); dendrogram(Z, no_labels=True, ax=ax)
     ax.set(title=f"Dendrogram Ward (tối đa {len(sample)} quan sát)", xlabel="Quan sát", ylabel="Khoảng cách")
     fig.tight_layout(); fig.savefig(figs/"dendrogram.png", dpi=160); plt.close(fig)
-    report = {"rows_used": int(len(df)), "features_used": ["Age","Annual Income","Spending Score","Gender"],
-              "scaling": "StandardScaler cho biến số; OneHotEncoder cho Gender",
+    report = {"rows_used": int(len(df)),
+              "features_used": (["Age","Annual Income","Spending Score","Gender"]
+                                if include_gender else ["Age","Annual Income","Spending Score"]),
+              "scaling": ("StandardScaler cho biến số; OneHotEncoder cho Gender"
+                          if include_gender else "StandardScaler cho biến số; không dùng Gender"),
+              "gender_included": include_gender,
+              "k_search_range": [2, int(max_k)],
               "selected_k_by_silhouette": int(best_k), "algorithms": records,
               "dbscan_eps_sweep": eps_rows,
               "metric_note": "DBSCAN tính metric sau khi loại noise (-1); metric_samples được ghi rõ. So sánh cần lưu ý khác tập mẫu.",
