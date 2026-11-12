@@ -26,12 +26,24 @@ Không đưa InvoiceNo, CustomerID hoặc doanh thu tháng hiện tại vào đ�
 ## 4. Chia tập và chống leakage
 - Chia train/test theo thời gian; các tháng cuối cùng là holdout test.
 - Không shuffle dữ liệu.
+- Sử dụng TimeSeriesSplit trên tập train để đánh giá mô hình.
+- Các fold được xây dựng theo tháng hoàn chỉnh, không tách sản phẩm của cùng một tháng sang cả train và validation.
+- Cross-validation dùng 2 folds trên các tháng train.
 - RandomizedSearchCV chỉ chạy trên train.
-- Cross-validation chia theo **tháng hoàn chỉnh**, không tách các sản phẩm của cùng một tháng sang cả train và validation.
-- Test chỉ dùng một lần để báo cáo hiệu năng cuối.
+- Chọn mô hình cuối cùng theo CV RMSE trung bình thấp nhất.
+- Test được giữ độc lập và chỉ dùng để báo cáo hiệu năng cuối của các mô hình, không dùng để chọn mô hình hoặc tuning tham số.
 
 ## 5. Mô hình
-Linear Regression, Decision Tree Regressor, Random Forest Regressor, Gradient Boosting Regressor. Random Forest được tune bằng RandomizedSearchCV với số cây, độ sâu, min_samples_leaf và max_features.
+Các mô hình được so sánh:
+- Linear Regression.
+- Decision Tree Regressor.
+- Random Forest Regressor.
+- Gradient Boosting Regressor.
+
+Random Forest được tune bằng RandomizedSearchCV với các tham số:
+`n_estimators`, `max_depth`, `min_samples_leaf` và `max_features`.
+
+Mô hình cuối cùng được chọn theo CV RMSE trên train. Trong lần chạy hiện tại, Random Forest (tuned) có CV RMSE thấp nhất và được chọn làm mô hình cuối cùng.
 
 ## 6. Đánh giá
 MAE, MSE, RMSE và R² được tính trên target GBP gốc. RMSE nhạy với sai số lớn; MAE dễ diễn giải theo đơn vị tiền; R² có thể âm nếu mô hình kém hơn baseline dự báo trung bình. Dự báo âm được chặn về 0 do doanh thu không âm theo định nghĩa dữ liệu đã lọc.

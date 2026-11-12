@@ -1,0 +1,98 @@
+{
+  "dataset": {
+    "rows_downloaded": 541909,
+    "columns": [
+      "InvoiceNo",
+      "StockCode",
+      "Description",
+      "Quantity",
+      "InvoiceDate",
+      "UnitPrice",
+      "CustomerID",
+      "Country"
+    ]
+  },
+  "panel_rows": 33167,
+  "train_rows": 25794,
+  "test_rows": 7373,
+  "train_months": [
+    "2011-03-01",
+    "2011-04-01",
+    "2011-05-01",
+    "2011-06-01",
+    "2011-07-01",
+    "2011-08-01",
+    "2011-09-01",
+    "2011-10-01"
+  ],
+  "test_start": "2011-11-01",
+  "selection_metric": "CV_RMSE",
+  "best_model": "Random Forest (tuned)",
+  "best_params": {
+    "model__n_estimators": 200,
+    "model__min_samples_leaf": 4,
+    "model__max_features": 0.8,
+    "model__max_depth": 12
+  },
+  "tuning_best_params": {
+    "model__n_estimators": 200,
+    "model__min_samples_leaf": 4,
+    "model__max_features": 0.8,
+    "model__max_depth": 12
+  },
+  "metrics": [
+    {
+      "model": "Random Forest (tuned)",
+      "MAE": 221.35162423231782,
+      "MSE": 602729.3698793817,
+      "RMSE": 776.356470881374,
+      "R2": 0.44318331901562413,
+      "CV_RMSE": 413.7774908633478,
+      "tuned": true
+    },
+    {
+      "model": "Random Forest",
+      "MAE": 195.9713316831683,
+      "MSE": 581334.6584823558,
+      "RMSE": 762.4530532972872,
+      "R2": 0.46294829611155475,
+      "CV_RMSE": 436.3621365698597,
+      "tuned": false
+    },
+    {
+      "model": "Gradient Boosting",
+      "MAE": 218.08170761354728,
+      "MSE": 578850.4981361008,
+      "RMSE": 760.8222513413372,
+      "R2": 0.465243226453694,
+      "CV_RMSE": 484.7115898961942,
+      "tuned": false
+    },
+    {
+      "model": "Linear Regression",
+      "MAE": 212.54578237035867,
+      "MSE": 644330.5474511896,
+      "RMSE": 802.7020290563552,
+      "R2": 0.4047510959016064,
+      "CV_RMSE": 502.7077519979837,
+      "tuned": false
+    },
+    {
+      "model": "Decision Tree",
+      "MAE": 219.5946712328767,
+      "MSE": 680713.2032368509,
+      "RMSE": 825.0534547754169,
+      "R2": 0.3711398755888763,
+      "CV_RMSE": 503.7342739453662,
+      "tuned": false
+    }
+  ],
+  "notes": [
+    "Holdout theo thời gian; không shuffle.",
+    "Lag và rolling mean chỉ sử dụng các tháng trước.",
+    "RMSE/MAE/R2 được tính trên target gốc GBP.",
+    "Mô hình tốt nhất được chọn theo CV RMSE trung bình trên train.",
+    "Tuning Random Forest và chọn mô hình chỉ sử dụng CV trên train.",
+    "Test chỉ dùng đánh giá cuối, không dùng chọn mô hình; best_params là tham số của mô hình được chọn; tuning_best_params là kết quả tìm kiếm Random Forest."
+  ]
+}

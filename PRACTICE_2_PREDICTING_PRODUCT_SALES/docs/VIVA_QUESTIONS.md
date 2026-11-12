@@ -28,3 +28,26 @@
 - Vì sao không shuffle? Vì phá thứ tự thời gian.
 - Vì sao dự báo âm bị chặn về 0? Target doanh thu được định nghĩa không âm; đây là post-processing và metrics được tính sau bước này.
 - Hạn chế dataset? Dữ liệu lịch sử 2010–2011, thiếu promotion/inventory/marketing, không đại diện thị trường hiện tại.
+
+## Câu hỏi xoáy bổ sung — Cross-validation và Model Selection
+
+17. **Vì sao chọn mô hình theo CV RMSE thay vì Test RMSE?**
+    Vì test cần được giữ độc lập để đánh giá cuối cùng. Nếu dùng test để chọn mô hình, kết quả đánh giá sẽ bị thiên lệch.
+
+18. **Mô hình nào được chọn và vì sao?**
+    Random Forest (tuned), vì có CV RMSE thấp nhất: 413.78 GBP.
+
+19. **Tại sao Gradient Boosting có Test RMSE thấp nhất nhưng không được chọn?**
+    Vì mô hình được chọn dựa trên CV RMSE của train, không dựa trên kết quả test.
+
+20. **CV RMSE và Test RMSE khác nhau thế nào?**
+    CV RMSE là sai số trung bình trên các fold validation trong tập train. Test RMSE là sai số trên tập holdout độc lập.
+
+21. **Vì sao CV RMSE thấp hơn nhiều so với Test RMSE?**
+    Có thể do phân phối doanh thu ở các tháng test khác với các tháng train. Đây có thể là dấu hiệu thay đổi theo thời gian trong dữ liệu.
+
+22. **TimeSeriesSplit có giống K-Fold thông thường không?**
+    Không. TimeSeriesSplit giữ thứ tự thời gian: dữ liệu train luôn nằm trước dữ liệu validation.
+
+23. **Tuning Random Forest có sử dụng test không?**
+    Không. RandomizedSearchCV chỉ sử dụng dữ liệu train và các fold CV.
