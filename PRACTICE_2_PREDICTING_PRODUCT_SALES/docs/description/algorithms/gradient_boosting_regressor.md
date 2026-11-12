@@ -1,11 +1,11 @@
-# Gradient Boosting Regressor
+# Thuật toán Tăng cường Gradient hồi quy (Gradient Boosting Regressor)
 
-**Purpose:** boosted-tree candidate for monthly product revenue forecasting.
+**Mục đích:** mô hình cây tăng cường dùng để dự báo doanh thu sản phẩm theo tháng.
 
-**Input / output:** shared Lab 2 preprocessing and features; continuous monthly revenue estimate in GBP.
+**Đầu vào và đầu ra:** sử dụng bộ đặc trưng và quy trình tiền xử lý chung của Lab 2; đầu ra là doanh thu tháng dự đoán, đơn vị GBP.
 
-**How it works:** adds trees sequentially; each tree fits remaining prediction errors, with its contribution controlled by a learning rate.
+**Cách hoạt động:** mô hình xây dựng các cây tuần tự. Mỗi cây mới học phần sai số còn lại của mô hình hiện tại; mức đóng góp của cây được điều chỉnh bằng tốc độ học.
 
-**Evaluation:** same training-only temporal CV RMSE and chronological holdout regression metrics as other candidates.
+**Đánh giá:** sử dụng cùng RMSE từ kiểm định chéo theo thời gian trên tập huấn luyện và các chỉ số hồi quy trên tập kiểm tra như những mô hình còn lại.
 
-**Strengths / limitations:** models nonlinear patterns effectively, but can overfit and depends on tree and learning-rate settings. The current script uses estimator defaults apart from random_state; it does not tune this model separately.
+**Ưu điểm và hạn chế:** có khả năng mô hình hóa quan hệ phi tuyến phức tạp, nhưng có thể quá khớp và phụ thuộc vào tham số của cây cũng như tốc độ học. Trong mã hiện tại, mô hình dùng tham số mặc định ngoài `random_state`; chưa có bước tìm kiếm tham số riêng.
