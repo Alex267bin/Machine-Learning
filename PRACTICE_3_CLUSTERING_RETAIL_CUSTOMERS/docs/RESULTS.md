@@ -1,3 +1,11 @@
-# Kết quả — Practice 3
+# Kết quả — Lab 3
 
-Chạy cluster.py để tạo outputs/metrics.csv, customer_clusters.csv, cluster_profiles.csv, elbow.png, pca_clusters.png và dendrogram.png. Chỉ mô tả cụm theo trung bình tuổi/thu nhập/điểm chi tiêu và tỷ lệ Gender thực tế; không gán tên VIP/tiết kiệm trước khi xem profile. Ghi rõ nếu K-Medoids không chạy do dependency.
+Chưa điền metrics giả định. Chạy pipeline với CSV thực tế để sinh:
+- `outputs/metrics.csv`: bốn thuật toán và các metric.
+- `outputs/clustering_report.json`: cấu hình, số cụm, noise, số mẫu dùng tính metric và eps sweep.
+- `outputs/elbow_values.csv`, `outputs/silhouette_by_k.csv`.
+- `outputs/customer_cluster_assignments.csv`: nhãn từng thuật toán.
+- `outputs/cluster_profiles.csv`: profile K-Means từ dữ liệu gốc.
+- `outputs/figures/`: Elbow, Silhouette, PCA 2D và dendrogram.
+
+DBSCAN loại noise trước khi tính metric; phải đọc cột metric_samples khi so sánh.
