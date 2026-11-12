@@ -1,18 +1,33 @@
-# Practice 3 — Phân cụm khách hàng bán lẻ
+# Lab 3 — Clustering Retail Customers
 
-## Mục tiêu
-Khám phá nhóm khách hàng từ Age, Gender, Annual Income (k$), Spending Score (1–100). Không có nhãn đúng/sai; diễn giải cụm dựa trên profile thực tế.
+Phân cụm Mall Customers và bài bổ sung K-Means Image Segmentation.
 
-## Dữ liệu
-Đặt Mall_Customers.csv vào data/. Bản phổ biến có CustomerID, Gender, Age, Annual Income (k$), Spending Score (1–100), thường được chia sẻ trên Kaggle. Các bản sao có thể khác nhau; cần xác minh URL và điều khoản/giấy phép của đúng bản tải. Không commit dữ liệu chưa rõ quyền phân phối.
+## Cấu trúc
+- data/Mall_Customers.csv: dataset đầu vào.
+- scripts/cluster.py: preprocessing, Elbow/Silhouette, K-Means, PAM K-Medoids, DBSCAN, Hierarchical, metrics, profiles, PCA, dendrogram.
+- scripts/image_segmentation.py: clustering pixel theo màu.
+- docs/: dataset, methodology, results, viva.
+- outputs/: CSV/JSON/figures sinh tự động.
 
-## Chạy
+## Cài đặt (Python 3.12)
 ```bash
+cd PRACTICE_3_CLUSTERING_RETAIL_CUSTOMERS
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-python scripts/cluster.py --data data/Mall_Customers.csv
-python scripts/image_segmentation.py --image data/sample.jpg --k 5
 ```
 
-## Phương pháp
-So sánh K-Means, K-Medoids, DBSCAN, Hierarchical/Agglomerative; chọn k bằng Elbow/Silhouette; đánh giá Silhouette, Davies–Bouldin, Calinski–Harabasz khi điều kiện hợp lệ. DBSCAN noise (-1) không tính như một cụm thường.
-Image segmentation là bài phụ độc lập: K-Means phân cụm pixel màu, thay pixel bằng centroid và tái tạo ảnh.
+## Chạy clustering
+```bash
+python scripts/cluster.py --data data/Mall_Customers.csv
+python scripts/cluster.py --data data/Mall_Customers.csv --eps 0.75 --min-samples 5
+```
+
+## Image Segmentation
+```bash
+python scripts/image_segmentation.py --image data/sample.jpg --k 5
+```
+Ảnh phải do người dùng cung cấp hoặc có quyền sử dụng. Kết quả lưu trong outputs/. Đây là clustering màu pixel, không phải semantic segmentation.
+
+Đọc docs/METHODOLOGY.md và docs/VIVA_QUESTIONS.md; không đặt persona trước khi xem profile.
