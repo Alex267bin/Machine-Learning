@@ -1,10 +1,10 @@
-# Lab 2 — Documentation
+# Tài liệu mô tả — Lab 2
 
-- [Project description](project_description.md)
-- [Project design and pipeline](project_design.md)
-- [Algorithms](algorithms/): Linear Regression, Decision Tree, Random Forest, Gradient Boosting.
-- [Dataset documentation](../DATASET_DOCUMENTATION.md)
-- [Methodology](../METHODOLOGY.md)
-- [Results](../RESULTS.md) — update only from a verified run.
-- [References](../REFERENCES.md)
-- [Viva questions](../VIVA_QUESTIONS.md)
+- [Mô tả dự án](project_description.md)
+- [Thiết kế dự án và quy trình xử lý](project_design.md)
+- [Các thuật toán](algorithms/): Hồi quy tuyến tính, Cây quyết định, Rừng ngẫu nhiên và Tăng cường Gradient.
+- [Tài liệu bộ dữ liệu](../DATASET_DOCUMENTATION.md)
+- [Phương pháp thực hiện](../METHODOLOGY.md)
+- [Kết quả](../RESULTS.md) — chỉ cập nhật sau khi chạy và xác minh thực tế.
+- [Tài liệu tham khảo](../REFERENCES.md)
+- [Câu hỏi vấn đáp](../VIVA_QUESTIONS.md)
