@@ -1,43 +1,43 @@
-# Project Description — Retail Customer Clustering
+# Mô tả dự án — Phân cụm khách hàng bán lẻ
 
-## 1. Purpose
-Explore customer groups using demographic and spending attributes, compare clustering algorithms, and summarize cluster characteristics to support descriptive customer segmentation.
+## 1. Mục đích
+Khám phá các nhóm khách hàng dựa trên đặc điểm nhân khẩu học và hành vi chi tiêu, so sánh các thuật toán phân cụm và tổng hợp đặc điểm của từng nhóm để hỗ trợ phân khúc khách hàng ở mức mô tả.
 
-## 2. Problem definition
-- **Type:** unsupervised learning; no ground-truth class labels.
-- **Dataset:** Mall Customers CSV supplied separately; source and license must be recorded by the user.
-- **Observation:** one customer row.
-- **Features:** Age, Annual Income, Spending Score, and optionally Gender.
-- **Output:** cluster label per algorithm, internal validation metrics, cluster profiles, and visual diagnostics.
+## 2. Xác định bài toán
+- **Loại bài toán:** học không giám sát; không có nhãn lớp đúng được cung cấp trước.
+- **Bộ dữ liệu:** tệp CSV Mall Customers do người dùng chuẩn bị riêng; cần ghi lại nguồn và giấy phép của đúng phiên bản dữ liệu đã sử dụng.
+- **Một quan sát:** một dòng tương ứng với một khách hàng.
+- **Đặc trưng:** tuổi, thu nhập hằng năm, điểm chi tiêu và giới tính (tùy chọn).
+- **Đầu ra:** nhãn cụm của từng thuật toán, chỉ số đánh giá nội bộ, hồ sơ cụm và biểu đồ trực quan.
 
-## 3. Input and output
-Input CSV must contain `Gender`, `Age`, `Annual Income (k$)` (or accepted capitalization), and `Spending Score (1-100)` (or accepted en-dash variant). CustomerID may be present but is not used as a clustering feature.
+## 3. Đầu vào và đầu ra
+Tệp CSV cần có các cột `Gender`, `Age`, `Annual Income (k$)` (hoặc cách viết hoa được chương trình chấp nhận) và `Spending Score (1-100)` (hoặc biến thể dùng dấu gạch ngang dài). Có thể có `CustomerID`, nhưng cột này không được dùng làm đặc trưng phân cụm.
 
-Outputs include metrics, DBSCAN parameter sweep, per-customer assignments, K-Means profiles, elbow/silhouette tables, PCA visualization, Ward dendrogram, and JSON run summary.
+Đầu ra gồm bảng chỉ số, kết quả khảo sát tham số DBSCAN, nhãn cụm của từng khách hàng, hồ sơ cụm K-Means, bảng Elbow/Silhouette, biểu đồ PCA, biểu đồ cây Ward và bản tổng hợp kết quả dạng JSON.
 
-## 4. Algorithms
-1. K-Means — centroid-based partitioning; k selected by highest silhouette in the tested range.
-2. K-Medoids (PAM) — custom Partitioning Around Medoids implementation using Euclidean pairwise distances.
-3. DBSCAN — density-based clusters with noise label -1.
-4. Hierarchical Agglomerative — Ward linkage with selected k.
+## 4. Các thuật toán
+1. **K-Means:** phân cụm dựa trên tâm cụm; k được chọn theo Silhouette cao nhất trong phạm vi thử nghiệm.
+2. **K-Medoids (PAM):** cài đặt PAM bằng mã tự viết, sử dụng khoảng cách Euclid giữa các cặp điểm.
+3. **DBSCAN:** phân cụm dựa trên mật độ; nhãn -1 biểu thị điểm nhiễu.
+4. **Phân cụm phân cấp kết tụ:** sử dụng liên kết Ward với số cụm đã chọn.
 
-## 5. Preprocessing
-Numeric features are median-imputed and standardized. Gender is optionally most-frequent-imputed and one-hot encoded. The `--without-gender` option allows checking how gender inclusion changes the grouping.
+## 5. Tiền xử lý
+Đặc trưng số được điền giá trị thiếu bằng trung vị và chuẩn hóa. Giới tính (nếu sử dụng) được điền giá trị thiếu bằng giá trị xuất hiện phổ biến nhất rồi mã hóa One-Hot. Tùy chọn `--without-gender` cho phép kiểm tra ảnh hưởng của việc đưa giới tính vào phân cụm.
 
-## 6. Evaluation and interpretation
-Silhouette, Davies–Bouldin and Calinski–Harabasz are computed on non-noise observations for DBSCAN. The report records the metric sample count and noise count. K-Means profiles are computed from original, unscaled attributes. Cluster labels are arbitrary identifiers, not ranked customer quality.
+## 6. Đánh giá và diễn giải
+Với DBSCAN, Silhouette, Davies–Bouldin và Calinski–Harabasz được tính trên các quan sát không bị xem là nhiễu. Báo cáo lưu số mẫu dùng để tính chỉ số và số điểm nhiễu. Hồ sơ K-Means được tính từ dữ liệu gốc chưa chuẩn hóa. Nhãn cụm chỉ là mã định danh, không phải thứ hạng chất lượng khách hàng.
 
-## 7. Image segmentation extension
-A separate script applies K-Means to RGB pixel vectors, replacing each pixel with its cluster-centroid color. This is color quantization, not semantic object recognition.
+## 7. Phần mở rộng phân đoạn ảnh
+Một chương trình riêng áp dụng K-Means lên các véc-tơ màu RGB của điểm ảnh, thay mỗi điểm ảnh bằng màu tâm cụm tương ứng. Đây là lượng tử hóa màu, không phải nhận diện ngữ nghĩa của vật thể.
 
-## 8. Limitations
-Clustering is exploratory and depends on scaling, feature choice, distance metric and parameters. The sample Mall dataset is small. DBSCAN metrics may use fewer observations than other algorithms because noise is excluded. A cluster profile is descriptive and does not prove a causal customer persona.
+## 8. Giới hạn
+Phân cụm mang tính khám phá và phụ thuộc vào chuẩn hóa, lựa chọn đặc trưng, thước đo khoảng cách và tham số. Bộ dữ liệu Mall Customers có quy mô nhỏ. Chỉ số DBSCAN có thể dùng ít mẫu hơn các thuật toán khác do loại điểm nhiễu. Hồ sơ cụm chỉ mô tả dữ liệu, không chứng minh một chân dung khách hàng có quan hệ nhân quả.
 
-## 9. Acceptance checklist
-- [ ] Correct source CSV and license/source details recorded.
-- [ ] Required columns and row cleaning checked.
-- [ ] Numeric scaling and optional Gender encoding documented.
-- [ ] Four clustering methods run and assignments saved.
-- [ ] DBSCAN noise and metric sample count reported.
-- [ ] Profiles use original-scale data.
-- [ ] Image segmentation uses an authorized image and is described as RGB clustering.
+## 9. Tiêu chí nghiệm thu
+- [ ] Ghi lại nguồn CSV và giấy phép sử dụng chính xác.
+- [ ] Kiểm tra các cột bắt buộc và quá trình làm sạch dòng dữ liệu.
+- [ ] Mô tả việc chuẩn hóa đặc trưng số và tùy chọn mã hóa giới tính.
+- [ ] Chạy đủ bốn phương pháp phân cụm và lưu nhãn kết quả.
+- [ ] Báo cáo số điểm nhiễu DBSCAN và số mẫu dùng tính chỉ số.
+- [ ] Tính hồ sơ cụm trên thang đo dữ liệu gốc.
+- [ ] Dùng ảnh có quyền sử dụng và mô tả phần mở rộng là phân cụm màu RGB.
