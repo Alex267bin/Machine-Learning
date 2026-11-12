@@ -1,22 +1,22 @@
-# DBSCAN
+# Thuật toán DBSCAN
 
-## Purpose
-Find dense customer groups without specifying the number of clusters in advance, and identify isolated observations as noise.
+## Mục đích
+Tìm các nhóm khách hàng có mật độ điểm dữ liệu cao mà không cần xác định trước số cụm, đồng thời phát hiện các điểm riêng lẻ được xem là nhiễu.
 
-## Input
-Standardized numeric attributes and optional one-hot Gender; parameters eps and min_samples.
+## Đầu vào
+Các thuộc tính số đã chuẩn hóa và tùy chọn giới tính được mã hóa One-Hot; hai tham số chính là `eps` và `min_samples`.
 
-## Output
-Cluster labels; label -1 denotes noise. The pipeline records cluster_count, noise_count and metric_samples.
+## Đầu ra
+Nhãn cụm cho từng khách hàng; nhãn `-1` biểu thị điểm nhiễu. Quy trình ghi lại số cụm, số điểm nhiễu và số mẫu được dùng để tính chỉ số.
 
-## How it works
-For each point, DBSCAN examines its eps-neighborhood. Points with at least min_samples neighbors are core points. Density-reachable points are expanded into clusters; points not assigned to a cluster are noise or border points.
+## Cách hoạt động
+Với mỗi điểm, DBSCAN xét các điểm nằm trong vùng lân cận có bán kính `eps`. Điểm có ít nhất `min_samples` điểm trong vùng lân cận được xem là điểm lõi. Thuật toán mở rộng cụm từ các điểm lõi thông qua quan hệ liên kết mật độ; các điểm không thuộc cụm có thể được đánh dấu là nhiễu.
 
-## Parameters in this project
-Defaults: eps=0.75 and min_samples=5. A sweep tests eps from 0.3 to 1.5 in increments of 0.1.
+## Tham số trong dự án
+Giá trị mặc định: `eps=0.75` và `min_samples=5`. Chương trình khảo sát `eps` từ 0.3 đến 1.5, bước tăng 0.1.
 
-## Evaluation caveat
-Noise observations are removed before calculating silhouette, Davies–Bouldin and Calinski–Harabasz. The number of scored observations is saved. Therefore DBSCAN metrics may not use the same sample set as K-Means, PAM or Hierarchical and must be interpreted carefully.
+## Lưu ý khi đánh giá
+Các điểm nhiễu bị loại khỏi dữ liệu tính Silhouette, Davies–Bouldin và Calinski–Harabasz. Số lượng mẫu được chấm điểm cũng được lưu lại. Vì vậy, các chỉ số DBSCAN có thể được tính trên tập mẫu khác với K-Means, PAM hoặc phân cụm phân cấp; cần thận trọng khi so sánh trực tiếp.
 
-## Strengths and limitations
-Can find irregularly shaped dense groups and detect noise. Results are sensitive to eps, min_samples and distance scale; varying densities are difficult to handle.
+## Ưu điểm và hạn chế
+Có thể tìm cụm có hình dạng không đều và phát hiện nhiễu. Kết quả nhạy với `eps`, `min_samples` và thang đo khoảng cách; thuật toán khó xử lý tốt dữ liệu có mật độ thay đổi lớn.
