@@ -1,0 +1,10 @@
+pandas>=2.1
+numpy>=1.26
+scikit-learn>=1.4
+scikit-learn-extra>=0.3.0
+matplotlib>=3.8
+seaborn>=0.13
+Pillow>=10
+opencv-python>=4.9
+scipy>=1.11
+jupyter>=1.0
