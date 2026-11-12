@@ -1,5 +1,5 @@
-# HTML reports
+# Báo cáo HTML
 
-Reserved for reports generated from a verified run using the actual Mall Customers CSV. No HTML report is committed yet because the dataset must be supplied and the pipeline must be executed in Codespaces. Do not invent cluster counts, scores or customer personas.
+Thư mục này dành cho các báo cáo được tạo từ lần chạy đã xác minh trên tệp Mall Customers CSV thực tế. Hiện chưa có báo cáo HTML vì cần cung cấp bộ dữ liệu và chạy quy trình trong Codespaces. Không tự tạo số lượng cụm, điểm đánh giá hoặc chân dung khách hàng.
 
-Suggested sections: data audit, preprocessing, algorithm comparison, DBSCAN parameter sweep, cluster profiles, image segmentation extension and limitations.
+Các phần nên có trong báo cáo: kiểm tra dữ liệu, tiền xử lý, so sánh thuật toán, khảo sát tham số DBSCAN, hồ sơ cụm, phần mở rộng phân đoạn ảnh và các giới hạn của phương pháp.
