@@ -1,19 +1,19 @@
-# K-Means Image Segmentation (RGB Color Quantization)
+# Phân đoạn ảnh bằng K-Means (lượng tử hóa màu RGB)
 
-## Purpose
-Reduce the number of distinct colors in an image by grouping pixels with similar RGB values.
+## Mục đích
+Giảm số lượng màu khác nhau trong ảnh bằng cách nhóm các điểm ảnh có giá trị RGB tương tự nhau.
 
-## Input
-An image file readable by Pillow. It is converted to RGB and resized so its longest side does not exceed max_side (default 600).
+## Đầu vào
+Một tệp ảnh mà thư viện Pillow có thể đọc. Ảnh được chuyển sang hệ màu RGB và thay đổi kích thước sao cho cạnh dài nhất không vượt quá `max_side` (mặc định 600).
 
-## Output
-A segmented image and side-by-side comparison figure. Each pixel is replaced by the RGB centroid of its assigned cluster.
+## Đầu ra
+Ảnh sau phân cụm và hình so sánh ảnh gốc với ảnh đã xử lý. Mỗi điểm ảnh được thay bằng màu RGB của tâm cụm mà nó thuộc về.
 
-## How it works
-The image is reshaped into an N × 3 matrix, where each row is one pixel's red, green and blue values. K-Means groups these vectors into k clusters. The centroid color replaces each original pixel.
+## Cách hoạt động
+Ảnh được chuyển thành ma trận N × 3, mỗi dòng tương ứng với ba giá trị đỏ, lục và lam của một điểm ảnh. K-Means nhóm các véc-tơ màu thành k cụm. Màu của tâm cụm được dùng để thay thế màu ban đầu của từng điểm ảnh.
 
-## Parameters
-Default k=5, max_side=600, n_init=10 and random_state=42. The script validates the image, k and pixel count.
+## Tham số
+Mặc định: `k=5`, `max_side=600`, `n_init=10` và `random_state=42`. Chương trình kiểm tra tệp ảnh, giá trị k và số lượng điểm ảnh.
 
-## Strengths and limitations
-Simple demonstration of clustering and color quantization. It does not understand objects, boundaries or semantic classes; it is not semantic segmentation. Results depend on k and RGB Euclidean distance.
+## Ưu điểm và hạn chế
+Đây là ví dụ trực quan về phân cụm và lượng tử hóa màu. Thuật toán không hiểu vật thể, đường biên hay lớp ngữ nghĩa; vì vậy không phải phân đoạn ngữ nghĩa. Kết quả phụ thuộc vào k và khoảng cách Euclid trong không gian RGB.
