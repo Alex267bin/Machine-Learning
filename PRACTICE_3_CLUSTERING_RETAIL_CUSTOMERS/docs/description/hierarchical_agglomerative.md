@@ -1,19 +1,19 @@
-# Hierarchical Agglomerative Clustering — Ward
+# Phân cụm phân cấp kết tụ — phương pháp Ward
 
-## Purpose
-Build a hierarchy of nested customer clusters and produce a flat partition with the selected k.
+## Mục đích
+Xây dựng cấu trúc phân cấp gồm các cụm lồng nhau, sau đó tạo kết quả phân cụm cuối cùng với số cụm đã chọn.
 
-## Input / Output
-Uses the transformed feature matrix. The estimator outputs one cluster label per customer. A separate Ward linkage matrix is computed for a dendrogram visualization.
+## Đầu vào và đầu ra
+Sử dụng ma trận đặc trưng đã biến đổi. Mô hình trả về một nhãn cụm cho mỗi khách hàng. Một ma trận liên kết Ward riêng được tính để vẽ biểu đồ cây phân cấp.
 
-## How it works
-Agglomerative clustering starts with each observation as its own cluster and repeatedly merges clusters. Ward linkage chooses merges that minimize the increase in within-cluster sum of squares.
+## Cách hoạt động
+Ban đầu, mỗi quan sát là một cụm riêng. Thuật toán lần lượt gộp các cụm lại với nhau. Phương pháp Ward chọn phép gộp làm mức tăng tổng bình phương sai lệch bên trong cụm nhỏ nhất.
 
-## Parameters in this project
-AgglomerativeClustering uses n_clusters equal to the K-Means silhouette-selected k and linkage="ward". The dendrogram uses scipy linkage(method="ward") on a reproducible sample of at most 100 rows.
+## Tham số trong dự án
+`AgglomerativeClustering` sử dụng số cụm bằng giá trị k được chọn theo Silhouette của K-Means và `linkage="ward"`. Biểu đồ cây dùng `scipy linkage(method="ward")` trên một mẫu có thể tái lập, tối đa 100 dòng.
 
-## Evaluation
-Silhouette, Davies–Bouldin and Calinski–Harabasz on the final labels.
+## Đánh giá
+Sử dụng Silhouette, Davies–Bouldin và Calinski–Harabasz trên nhãn cụm cuối cùng.
 
-## Strengths and limitations
-The hierarchy can reveal nested structure and the dendrogram helps explain merge distances. Standard agglomerative clustering is computationally more demanding than K-Means for larger datasets and Ward is tied to Euclidean geometry.
+## Ưu điểm và hạn chế
+Cấu trúc phân cấp giúp quan sát các nhóm lồng nhau; biểu đồ cây thể hiện khoảng cách tại thời điểm các cụm được gộp. Phân cụm kết tụ tiêu tốn nhiều tài nguyên hơn K-Means khi dữ liệu lớn; phương pháp Ward gắn với hình học Euclid.
