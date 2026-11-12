@@ -1,0 +1,1 @@
+Log thực nghiệm có thể lưu tại đây; không ghi dữ liệu cá nhân vào log.
