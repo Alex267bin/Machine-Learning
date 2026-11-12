@@ -1,13 +1,13 @@
-# Random Forest Regressor
+# Thuật toán Rừng ngẫu nhiên hồi quy (Random Forest Regressor)
 
-**Purpose:** ensemble decision trees for nonlinear product-month revenue prediction.
+**Mục đích:** kết hợp nhiều cây quyết định để dự báo doanh thu sản phẩm-tháng và mô hình hóa quan hệ phi tuyến.
 
-**Input / output:** the shared Lab 2 features and preprocessing pipeline; output is predicted monthly revenue in GBP.
+**Đầu vào và đầu ra:** sử dụng bộ đặc trưng và quy trình tiền xử lý chung của Lab 2; đầu ra là doanh thu tháng dự đoán, đơn vị GBP.
 
-**How it works:** trains many trees with bootstrap sampling and randomized feature selection, then averages their predictions to reduce variance.
+**Cách hoạt động:** huấn luyện nhiều cây trên các mẫu lấy bằng phương pháp lấy mẫu có hoàn lại và lựa chọn ngẫu nhiên đặc trưng. Kết quả dự đoán cuối cùng là trung bình dự đoán của các cây, giúp giảm phương sai so với một cây đơn lẻ.
 
-**Tuning:** RandomizedSearchCV searches n_estimators, max_depth, min_samples_leaf and max_features using chronological month-based folds from training data only.
+**Tinh chỉnh tham số:** `RandomizedSearchCV` tìm kiếm các tham số `n_estimators`, `max_depth`, `min_samples_leaf` và `max_features`, sử dụng các phần kiểm định theo tháng và chỉ lấy dữ liệu từ tập huấn luyện.
 
-**Evaluation:** CV RMSE selects the model; holdout MAE, MSE, RMSE and R² are reported separately. Feature importance is saved only when the selected tree model supports it.
+**Đánh giá:** RMSE kiểm định chéo được dùng để lựa chọn mô hình; MAE, MSE, RMSE và R² trên tập kiểm tra được báo cáo riêng. Độ quan trọng đặc trưng chỉ được lưu nếu mô hình cây được chọn hỗ trợ.
 
-**Strengths / limitations:** models nonlinearities and interactions, but is less interpretable and more computationally expensive than a linear baseline. Feature importance is not causal.
+**Ưu điểm và hạn chế:** mô hình hóa được quan hệ phi tuyến và tương tác, nhưng khó diễn giải hơn hồi quy tuyến tính và tốn tài nguyên tính toán hơn. Độ quan trọng đặc trưng không đồng nghĩa với quan hệ nhân quả.
