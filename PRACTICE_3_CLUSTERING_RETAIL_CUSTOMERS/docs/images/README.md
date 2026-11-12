@@ -1,3 +1,5 @@
-# Generated figures
+# Biểu đồ được tạo từ quá trình chạy
 
-The clustering pipeline writes figures to `outputs/figures/`: elbow, silhouette by k, PCA clusters and Ward dendrogram. The image segmentation script writes a comparison figure separately. Copy only figures from a verified run; do not add placeholder images.
+Quy trình phân cụm lưu các biểu đồ trong `outputs/figures/`, gồm biểu đồ Elbow, Silhouette theo k, các cụm trên mặt phẳng PCA và biểu đồ cây Ward. Chương trình phân đoạn ảnh tạo riêng hình so sánh ảnh gốc và ảnh sau xử lý.
+
+Chỉ sao chép các hình được tạo từ lần chạy đã kiểm tra. Không thêm hình giữ chỗ hoặc biểu đồ có số liệu tự tạo.
